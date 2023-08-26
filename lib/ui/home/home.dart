@@ -32,7 +32,6 @@ class Homepage extends ConsumerWidget {
             enableDrag: true,
             isDismissible: false,
             isScrollControlled: true,
-            showDragHandle: true,
             context: context,
             builder: (context) => const WriteBottomSheet()),
         child: const Icon(

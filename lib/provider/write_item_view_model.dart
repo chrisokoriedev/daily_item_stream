@@ -1,5 +1,8 @@
 import 'package:daily_item_stream/core/app_import.dart';
 
-class WriteItemViewModel extends ChangeNotifier{
-  
+final writerItemViewProvider =
+    ChangeNotifierProvider((ref) => WriteItemViewModel());
+
+class WriteItemViewModel extends ChangeNotifier {
+  Item item = Item();
 }
