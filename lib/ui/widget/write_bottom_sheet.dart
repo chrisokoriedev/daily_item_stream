@@ -1,6 +1,6 @@
 import '../../core/app_import.dart';
 
-class WriteBottomSheet extends ConsumerWidget {
+class WriteBottomSheet extends HookConsumerWidget {
   const WriteBottomSheet({super.key});
 
   @override
