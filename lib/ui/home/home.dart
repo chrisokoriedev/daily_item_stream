@@ -8,6 +8,7 @@ class Homepage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: ref.watch(itemProvider).when(
           data: (item) => ListView.builder(
               itemCount: item.length,
@@ -24,6 +25,20 @@ class Homepage extends ConsumerWidget {
           loading: () => const Center(
                 child: Text('Loading'),
               )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () => showModalBottomSheet(
+            enableDrag: true,
+            isDismissible: false,
+            isScrollControlled: true,
+            showDragHandle: true,
+            context: context,
+            builder: (context) => const WriteBottomSheet()),
+        child: const Icon(
+          Icons.add,
+          size: 15,
+        ),
+      ),
     );
   }
 }
