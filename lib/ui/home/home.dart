@@ -3,10 +3,17 @@ import '../../core/app_import.dart';
 class Homepage extends ConsumerWidget {
   const Homepage({super.key});
 
-  get data => null;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    openBottomsheet([Item? item]) async {
+      await showModalBottomSheet(
+          enableDrag: true,
+          isDismissible: false,
+          isScrollControlled: true,
+          context: context,
+          builder: (context) => WriteBottomSheet(item));
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
@@ -14,13 +21,12 @@ class Homepage extends ConsumerWidget {
         child: ref.watch(itemProvider).when(
             data: (item) => ListView.builder(
                 itemCount: item.length,
+                shrinkWrap: true,
                 itemBuilder: (context, index) {
                   final data = item[index];
-                  return Column(
-                    children: [
-                      Text(data.title),
-                      Text(data.des),
-                    ],
+                  return ListTile(
+                    title: Text(data.title),
+                    subtitle: Text(data.des),
                   );
                 }),
             error: (error, stacktrace) => Center(child: Text(error.toString())),
@@ -30,12 +36,7 @@ class Homepage extends ConsumerWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.small(
-        onPressed: () => showModalBottomSheet(
-            enableDrag: true,
-            isDismissible: false,
-            isScrollControlled: true,
-            context: context,
-            builder: (context) => const WriteBottomSheet()),
+        onPressed: openBottomsheet,
         child: const Icon(
           Icons.add,
           size: 15,

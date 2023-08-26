@@ -1,15 +1,19 @@
 import '../../core/app_import.dart';
 
 class WriteBottomSheet extends HookConsumerWidget {
-  const WriteBottomSheet({super.key});
+  const WriteBottomSheet(this.itemNew, {super.key});
+  final Item? itemNew;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemModel = ref.read(writerItemViewProvider);
+    final itemModel = ref.watch(writerItemViewProvider);
     final theme = Theme.of(context);
     final textStyle = theme.textTheme;
     final scheme = theme.colorScheme;
     final formKey = useRef(GlobalKey<FormState>());
+    if (itemNew != null) {
+      itemModel.init(itemNew!);
+    }
 
     return Form(
       key: formKey.value,
@@ -24,7 +28,7 @@ class WriteBottomSheet extends HookConsumerWidget {
           children: [
             Center(
               child: Text(
-                'Create Item',
+                '${itemNew != null ? 'Edit' : 'Create'} Item',
                 style: textStyle.titleMedium,
               ),
             ),
@@ -61,13 +65,31 @@ class WriteBottomSheet extends HookConsumerWidget {
               decoration: input(),
             ),
             const SizedBox(height: 30),
-            MaterialButton(
-              minWidth: double.infinity,
-              elevation: 3,
-              color: scheme.primaryContainer,
-              onPressed: () {},
-              child: Text('Create'),
-            ),
+            itemModel.loading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : MaterialButton(
+                    minWidth: double.infinity,
+                    elevation: 3,
+                    color: scheme.primaryContainer,
+                    onPressed: () async {
+                      if (formKey.value.currentState!.validate()) {
+                        formKey.value.currentState!.save();
+                        try {
+                          await itemModel.write();
+                          Navigator.pop(context);
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(e.toString()),
+                            ),
+                          );
+                        }
+                      }
+                    },
+                    child: Text(itemModel.isEditing ? 'update' : 'Create'),
+                  ),
           ],
         ),
       ),
