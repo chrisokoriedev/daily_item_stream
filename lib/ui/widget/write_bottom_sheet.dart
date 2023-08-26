@@ -1,5 +1,3 @@
-import 'package:flutter_hooks/flutter_hooks.dart';
-
 import '../../core/app_import.dart';
 
 class WriteBottomSheet extends ConsumerWidget {
@@ -38,6 +36,12 @@ class WriteBottomSheet extends ConsumerWidget {
             TextFormField(
               initialValue: itemModel.item.title,
               onSaved: (value) => itemModel.item.title = value!,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Title cannot be empty";
+                }
+                return null;
+              },
               decoration: input(),
             ),
             const SizedBox(height: 20),
@@ -48,6 +52,12 @@ class WriteBottomSheet extends ConsumerWidget {
             TextFormField(
               initialValue: itemModel.item.des,
               onSaved: (value) => itemModel.item.des = value!,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Title cannot be empty";
+                }
+                return null;
+              },
               decoration: input(),
             ),
             const SizedBox(height: 30),
