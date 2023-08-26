@@ -5,22 +5,43 @@ class WriteBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme;
+    final style = Theme.of(context);
+    final textStyle = style.textTheme;
     return Padding(
       padding: const EdgeInsets.all(15).copyWith(
         bottom: MediaQuery.of(context).viewInsets.bottom + 30,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Create Item',
-            style: style.bodyLarge,
+          Center(
+            child: Text(
+              'Create Item',
+              style: textStyle.titleMedium,
+            ),
           ),
-          TextFormField(),
-          TextFormField(),
+          const SizedBox(height: 5),
+          Text(
+            'Title',
+            style: textStyle.titleSmall,
+          ),
+          TextFormField(
+            decoration: input(),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            'description',
+            style: textStyle.titleSmall,
+          ),
+          TextFormField(
+            decoration: input(),
+          ),
         ],
       ),
     );
   }
+
+  InputDecoration input() => const InputDecoration(
+      isCollapsed: true, contentPadding: EdgeInsets.all(5));
 }
