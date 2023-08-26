@@ -1,6 +1,4 @@
-import 'package:daily_item_stream/provider/item_proiver.dart';
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../core/app_import.dart';
 
 class Homepage extends ConsumerWidget {
   const Homepage({super.key});
@@ -22,7 +20,7 @@ class Homepage extends ConsumerWidget {
                   ],
                 );
               }),
-          error: (error, stacktrace) => Text(error.toString()),
+          error: (error, stacktrace) => Center(child: Text(error.toString())),
           loading: () => const Center(
                 child: Text('Loading'),
               )),

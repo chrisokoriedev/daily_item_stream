@@ -1,8 +1,8 @@
-import 'package:daily_item_stream/ui/home/home.dart';
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'core/app_import.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(ItemAdapter());
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -17,8 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Homepage(),
+      home:  const Homepage(),
     );
   }
 }
-
