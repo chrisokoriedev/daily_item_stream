@@ -57,7 +57,7 @@ class WriteBottomSheet extends HookConsumerWidget {
               },
               decoration: input(),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             Text(
               'description',
               style: textStyle.titleSmall,
