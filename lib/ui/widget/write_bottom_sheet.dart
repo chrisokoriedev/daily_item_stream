@@ -46,6 +46,7 @@ class WriteBottomSheet extends HookConsumerWidget {
               'Title',
               style: textStyle.titleSmall,
             ),
+            const SizedBox(height: 10),
             TextFormField(
               initialValue: itemModel.item.title,
               onSaved: (value) => itemModel.item.title = value!,
@@ -55,15 +56,17 @@ class WriteBottomSheet extends HookConsumerWidget {
                 }
                 return null;
               },
-              decoration: input(),
+              decoration: input('Enter task title'),
             ),
             const SizedBox(height: 30),
             Text(
-              'description',
+              'Description',
               style: textStyle.titleSmall,
             ),
+            const SizedBox(height: 10),
             TextFormField(
               initialValue: itemModel.item.des,
+              maxLines: 3,
               onSaved: (value) => itemModel.item.des = value!,
               validator: (value) {
                 if (value!.isEmpty) {
@@ -71,7 +74,7 @@ class WriteBottomSheet extends HookConsumerWidget {
                 }
                 return null;
               },
-              decoration: input(),
+              decoration: input('Enter task description'),
             ),
             const SizedBox(height: 30),
             itemModel.loading
@@ -109,6 +112,10 @@ class WriteBottomSheet extends HookConsumerWidget {
     );
   }
 
-  InputDecoration input() => const InputDecoration(
-      isCollapsed: true, contentPadding: EdgeInsets.all(5));
+  InputDecoration input(String hintText) => InputDecoration(
+        isCollapsed: true,
+        isDense: true,
+        contentPadding: const EdgeInsets.all(5),
+        hintText: hintText,
+      );
 }
