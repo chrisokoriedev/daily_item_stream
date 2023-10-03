@@ -66,10 +66,21 @@ class Homepage extends ConsumerWidget {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         final data = item[index];
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: Text(data.title,style: textStyle.titleLarge,),
-                          subtitle: Text(data.des,style: textStyle.titleMedium,),
+                        return Card(
+                          color: Colors.deepPurple,
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          shape: BeveledRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: ListTile(
+                            title: Text(data.title,
+                                style: textStyle.titleLarge!
+                                    .copyWith(fontSize: 30)),
+                            subtitle: Text(
+                              data.des,
+                              style: textStyle.titleMedium!
+                                  .copyWith(color: Colors.white54),
+                            ),
+                          ),
                         );
                       }),
                   error: (error, stacktrace) =>
