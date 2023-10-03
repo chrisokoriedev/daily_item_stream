@@ -1,3 +1,5 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+
 import '../../core/app_import.dart';
 
 class WriteBottomSheet extends HookConsumerWidget {
@@ -19,20 +21,27 @@ class WriteBottomSheet extends HookConsumerWidget {
       key: formKey.value,
       child: Padding(
         padding:
-            const EdgeInsets.symmetric(horizontal: 15, vertical: 20).copyWith(
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 20).copyWith(
           bottom: MediaQuery.of(context).viewInsets.bottom + 10,
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Text(
-                '${itemNew != null ? 'Edit' : 'Create'} Item',
-                style: textStyle.titleMedium,
-              ),
+            const SizedBox(height: 100),
+            Text(
+              itemNew != null ? 'Edit Task' : 'Add New One!',
+              style: textStyle.titleLarge!
+                  .copyWith(fontSize: 25, fontWeight: FontWeight.w600),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
+            Text(
+              itemNew != null
+                  ? 'Update your task info'
+                  : 'Tell me about Your Task:)',
+              style: textStyle.titleLarge,
+            ),
+            const SizedBox(height: 30),
             Text(
               'Title',
               style: textStyle.titleSmall,
@@ -70,20 +79,24 @@ class WriteBottomSheet extends HookConsumerWidget {
                     child: CircularProgressIndicator(),
                   )
                 : MaterialButton(
-                    minWidth: double.infinity,
+                    minWidth: 200,
                     elevation: 3,
+                    height: 50,
                     color: scheme.primaryContainer,
+                    shape: BeveledRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     onPressed: () async {
                       if (formKey.value.currentState!.validate()) {
                         formKey.value.currentState!.save();
+                        FocusScope.of(context).unfocus();
                         try {
                           await itemModel.write();
                           Navigator.pop(context);
                         } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(e.toString()),
-                            ),
+                          AwesomeSnackbarContent(
+                            title: 'status',
+                            message: e.toString(),
+                            contentType: ContentType.failure,
                           );
                         }
                       }
