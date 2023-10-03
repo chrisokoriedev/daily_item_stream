@@ -18,77 +18,79 @@ class Homepage extends ConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 60),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.deepPurple,
-                    child: Icon(
-                      Icons.grid_3x3,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 60),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.deepPurple,
+                      child: Icon(
+                        Icons.grid_3x3,
+                        size: 30,
+                        color: Colors.white54,
+                      ),
+                    ),
+                    FlutterLogo(
                       size: 30,
-                      color: Colors.white54,
                     ),
-                  ),
-                  FlutterLogo(
-                    size: 30,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-              Text(
-                'Hello, Chrisdev',
-                style: textStyle.titleLarge,
-              ),
-              const SizedBox(height: 10),
-              ref.watch(itemProvider).when(
-                    data: (data) => Text(
-                      'You Have, ${{data.length}} Tasks',
-                      style: textStyle.titleLarge!.copyWith(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 1.6),
+                  ],
+                ),
+                const SizedBox(height: 40),
+                Text(
+                  'Hello, Chrisdev',
+                  style: textStyle.titleLarge,
+                ),
+                const SizedBox(height: 10),
+                ref.watch(itemProvider).when(
+                      data: (data) => Text(
+                        'You Have, ${{data.length}} Tasks',
+                        style: textStyle.titleLarge!.copyWith(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.6),
+                      ),
+                      error: (Object error, StackTrace stackTrace) =>
+                          const Text('Invalid data'),
+                      loading: () => const SizedBox(),
                     ),
-                    error: (Object error, StackTrace stackTrace) =>
-                        const Text('Invalid data'),
-                    loading: () => const SizedBox(),
-                  ),
-              ref.watch(itemProvider).when(
-                  data: (item) => ListView.builder(
-                      itemCount: item.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final data = item[index];
-                        return Card(
-                          color: Colors.deepPurple,
-                          margin: const EdgeInsets.symmetric(vertical: 8),
-                          shape: BeveledRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: ListTile(
-                            title: Text(data.title,
-                                style: textStyle.titleLarge!
-                                    .copyWith(fontSize: 30)),
-                            subtitle: Text(
-                              data.des,
-                              style: textStyle.titleMedium!
-                                  .copyWith(color: Colors.white54),
+                ref.watch(itemProvider).when(
+                    data: (item) => ListView.builder(
+                        itemCount: item.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          final data = item[index];
+                          return Card(
+                            color: Colors.deepPurple,
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            shape: BeveledRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: ListTile(
+                              title: Text(data.title,
+                                  style: textStyle.titleLarge!
+                                      .copyWith(fontSize: 30)),
+                              subtitle: Text(
+                                data.des,
+                                style: textStyle.titleMedium!
+                                    .copyWith(color: Colors.white54),
+                              ),
                             ),
-                          ),
-                        );
-                      }),
-                  error: (error, stacktrace) =>
-                      Center(child: Text(error.toString())),
-                  loading: () => const Center(
-                        child: Text('Loading'),
-                      )),
-            ],
+                          );
+                        }),
+                    error: (error, stacktrace) =>
+                        Center(child: Text(error.toString())),
+                    loading: () => const Center(
+                          child: Text('Loading'),
+                        )),
+              ],
+            ),
           ),
         ),
       ),
