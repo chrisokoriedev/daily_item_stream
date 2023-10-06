@@ -75,39 +75,20 @@ class Homepage extends ConsumerWidget {
                         itemCount: item.length,
                         itemBuilder: (context, index) {
                           final data = item[index];
-                          return Dismissible(
-                            key: ValueKey(item),
-                            background: const Card(
-                              color: Colors.white,
-                              margin: EdgeInsets.symmetric(vertical: 8),
-                              shape: BeveledRectangleBorder(
-                                  borderRadius: BorderRadius.horizontal(
-                                      right: Radius.circular(10))),
-                              child: Row(
-                                children: [
-                                  Center(
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: Colors.deepPurple,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            child: Card(
-                              color: Colors.deepPurple,
-                              margin: const EdgeInsets.symmetric(vertical: 8),
-                              shape: BeveledRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: ListTile(
-                                title: Text(data.title,
-                                    style: textStyle.titleLarge!
-                                        .copyWith(fontSize: 30)),
-                                subtitle: Text(
-                                  data.des,
-                                  style: textStyle.titleMedium!
-                                      .copyWith(color: Colors.white54),
-                                ),
+                          return Card(
+                            color: Colors.deepPurple,
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            shape: BeveledRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: ListTile(
+                              onTap: ()=>openBottomsheet(data),
+                              title: Text(data.title,
+                                  style: textStyle.titleLarge!
+                                      .copyWith(fontSize: 30)),
+                              subtitle: Text(
+                                data.des,
+                                style: textStyle.titleMedium!
+                                    .copyWith(color: Colors.white54),
                               ),
                             ),
                           );

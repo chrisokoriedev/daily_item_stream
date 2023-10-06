@@ -27,8 +27,13 @@ class WriteItemViewModel extends ChangeNotifier {
     _loading = true;
     try {
       final boxItem = await _ref.read(itemBoxProvider.future);
+      if (isEditing) {
+        await boxItem.put(item.key, item);
+      } else {
+        await boxItem.add(item);
+      }
       await boxItem.add(item);
-      _ref.refresh(itemProvider);
+     return _ref.refresh(itemProvider);
     } catch (e) {
       loading = false;
       return Future.error(e);
