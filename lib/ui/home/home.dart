@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../core/app_import.dart';
+import '../../core/respo_delete.dart';
 
 class Homepage extends ConsumerWidget {
   const Homepage({super.key});
@@ -119,6 +120,7 @@ class Homepage extends ConsumerWidget {
                                             .copyWith(fontSize: 30)),
                                     subtitle: Text(
                                       data.des,
+                                      maxLines: 3,
                                       style: textStyle.titleMedium!
                                           .copyWith(color: Colors.white54),
                                     ),
@@ -130,7 +132,17 @@ class Homepage extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Center(child: Icon(CupertinoIcons.delete))
+                                  Center(
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            ref
+                                                .read(repositoryProvider)
+                                                .deleteItem(data.key);
+                                          },
+                                          child: const Icon(
+                                            CupertinoIcons.delete,
+                                            color: Color.fromARGB(255, 118, 53, 49),
+                                          )))
                                 ],
                               ))
                             ],
