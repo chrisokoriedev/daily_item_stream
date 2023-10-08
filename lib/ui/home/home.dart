@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../core/app_import.dart';
 
 class Homepage extends ConsumerWidget {
@@ -100,22 +102,38 @@ class Homepage extends ConsumerWidget {
                         itemCount: item.length,
                         itemBuilder: (context, index) {
                           final data = item[index];
-                          return Card(
-                            color: Colors.deepPurple,
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            shape: BeveledRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            child: ListTile(
-                              onTap: () => openBottomsheet(data),
-                              title: Text(data.title,
-                                  style: textStyle.titleLarge!
-                                      .copyWith(fontSize: 30)),
-                              subtitle: Text(
-                                data.des,
-                                style: textStyle.titleMedium!
-                                    .copyWith(color: Colors.white54),
+                          return Row(
+                            children: [
+                              Flexible(
+                                flex: 10,
+                                child: Card(
+                                  color: Colors.deepPurple,
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  shape: BeveledRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: ListTile(
+                                    onTap: () => openBottomsheet(data),
+                                    title: Text(data.title,
+                                        style: textStyle.titleLarge!
+                                            .copyWith(fontSize: 30)),
+                                    subtitle: Text(
+                                      data.des,
+                                      style: textStyle.titleMedium!
+                                          .copyWith(color: Colors.white54),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+                              Flexible(
+                                  child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Center(child: Icon(CupertinoIcons.delete))
+                                ],
+                              ))
+                            ],
                           );
                         }),
                     error: (error, stacktrace) =>

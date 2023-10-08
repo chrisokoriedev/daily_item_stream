@@ -32,8 +32,7 @@ class WriteItemViewModel extends ChangeNotifier {
       } else {
         await boxItem.add(item);
       }
-      // await boxItem.add(item);
-     return _ref.refresh(itemProvider);
+      return _ref.refresh(itemProvider);
     } catch (e) {
       loading = false;
       return Future.error(e);
