@@ -3,6 +3,13 @@ import 'package:flutter/cupertino.dart';
 import '../../core/app_import.dart';
 import '../../core/respo_delete.dart';
 
+/// Homepage widget which displays the homepage UI.
+///
+/// Extends [ConsumerWidget] to access Riverpod state.
+///
+/// Builds the main UI with app bar, greeting, task count, list of tasks.
+/// Opens the [WriteBottomSheet] modal sheet when [FloatingActionButton] is pressed.
+/// Manages unfocusing when tapped.
 class Homepage extends ConsumerWidget {
   const Homepage({super.key});
 
@@ -81,7 +88,7 @@ class Homepage extends ConsumerWidget {
                                     letterSpacing: 1.6),
                               ),
                               Text(
-                                ' Tasks',
+                                data.length <= 1 ? 'Item' : "Items",
                                 style: textStyle.titleLarge!.copyWith(
                                     fontSize: 30,
                                     fontWeight: FontWeight.w600,
@@ -141,7 +148,8 @@ class Homepage extends ConsumerWidget {
                                           },
                                           child: const Icon(
                                             CupertinoIcons.delete,
-                                            color: Color.fromARGB(255, 118, 53, 49),
+                                            color: Color.fromARGB(
+                                                255, 118, 53, 49),
                                           )))
                                 ],
                               ))
