@@ -106,56 +106,65 @@ class Homepage extends ConsumerWidget {
               ),
               Expanded(
                 child: ref.watch(itemProvider).when(
-                    data: (item) => ListView.builder(
-                        itemCount: item.length,
-                        itemBuilder: (context, index) {
-                          final data = item[index];
-                          return Row(
-                            children: [
-                              Flexible(
-                                flex: 10,
-                                child: Card(
-                                  color: Colors.deepPurple,
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 8),
-                                  shape: BeveledRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: ListTile(
-                                    onTap: () => openBottomsheet(data),
-                                    title: Text(data.title,
-                                        style: textStyle.titleLarge!
-                                            .copyWith(fontSize: 30)),
-                                    subtitle: Text(
-                                      data.des,
-                                      maxLines: 3,
-                                      style: textStyle.titleMedium!
-                                          .copyWith(color: Colors.white54),
+                    data: (item) {
+                      if (item.isEmpty) {
+                        return Center(
+                          child: Text('No items available',style: textStyle.bodyMedium,),
+                        );
+                      }
+                      return ListView.builder(
+                          itemCount: item.length,
+                          itemBuilder: (context, index) {
+                            final data = item[index];
+
+                            return Row(
+                              children: [
+                                Flexible(
+                                  flex: 10,
+                                  child: Card(
+                                    color: Colors.deepPurple,
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    shape: BeveledRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: ListTile(
+                                      onTap: () => openBottomsheet(data),
+                                      title: Text(data.title,
+                                          style: textStyle.titleLarge!
+                                              .copyWith(fontSize: 30)),
+                                      subtitle: Text(
+                                        data.des,
+                                        maxLines: 3,
+                                        style: textStyle.titleMedium!
+                                            .copyWith(color: Colors.white54),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Flexible(
-                                  child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Center(
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            ref
-                                                .read(repositoryProvider)
-                                                .deleteItem(data.key);
-                                          },
-                                          child: const Icon(
-                                            CupertinoIcons.delete,
-                                            color: Color.fromARGB(
-                                                255, 118, 53, 49),
-                                          )))
-                                ],
-                              ))
-                            ],
-                          );
-                        }),
+                                Flexible(
+                                    child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              ref
+                                                  .read(repositoryProvider)
+                                                  .deleteItem(data.key);
+                                            },
+                                            child: const Icon(
+                                              CupertinoIcons.delete,
+                                              color: Color.fromARGB(
+                                                  255, 118, 53, 49),
+                                            )))
+                                  ],
+                                ))
+                              ],
+                            );
+                          });
+                    },
                     error: (error, stacktrace) =>
                         Center(child: Text(error.toString())),
                     loading: () => const Center(
