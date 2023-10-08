@@ -94,13 +94,9 @@ class WriteBottomSheet extends HookConsumerWidget {
                         FocusScope.of(context).unfocus();
                         try {
                           await itemModel.write();
-                           Navigator.pop(context);
+                          Navigator.pop(context);
                         } catch (e) {
-                          AwesomeSnackbarContent(
-                            title: 'status',
-                            message: e.toString(),
-                            contentType: ContentType.failure,
-                          );
+                          print(e.toString());
                         }
                       }
                     },

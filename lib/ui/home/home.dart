@@ -54,12 +54,37 @@ class Homepage extends ConsumerWidget {
                     ),
                     const SizedBox(height: 10),
                     ref.watch(itemProvider).when(
-                          data: (data) => Text(
-                            'You Have, ${{data.length}} Tasks',
-                            style: textStyle.titleLarge!.copyWith(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.6),
+                          data: (data) => Row(
+                            children: [
+                              Text(
+                                'You Have,',
+                                style: textStyle.titleLarge!.copyWith(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.6),
+                              ),
+                              Text(
+                                '${{data.length}}',
+                                style: textStyle.titleLarge!.copyWith(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.6),
+                              ),
+                              Text(
+                                data.length <= 1 ? '\t😵' : '\t😎',
+                                style: textStyle.titleLarge!.copyWith(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.6),
+                              ),
+                              Text(
+                                ' Tasks',
+                                style: textStyle.titleLarge!.copyWith(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.6),
+                              ),
+                            ],
                           ),
                           error: (Object error, StackTrace stackTrace) =>
                               const Text('Invalid data'),
@@ -81,7 +106,7 @@ class Homepage extends ConsumerWidget {
                             shape: BeveledRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             child: ListTile(
-                              onTap: ()=>openBottomsheet(data),
+                              onTap: () => openBottomsheet(data),
                               title: Text(data.title,
                                   style: textStyle.titleLarge!
                                       .copyWith(fontSize: 30)),
